@@ -21,4 +21,15 @@ def create_table():
     """)
     conn.commit()
     conn.close()
-    
+
+def add_employee(name, email, department, salary, joining_date):
+    conn = get_connection()
+    conn.execute(
+        """
+        INSERT INTO employees (name, email, department, salary, joining_date)
+        VALUES (?, ?, ?, ?, ?)
+         """,
+         (name, email, department, salary, joining_date),
+    )
+    conn.commit()
+    conn.close() 
