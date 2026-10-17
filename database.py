@@ -33,3 +33,11 @@ def add_employee(name, email, department, salary, joining_date):
     )
     conn.commit()
     conn.close() 
+
+def get_all_employees():
+    conn = get_connection()
+    rows = conn.execute(
+        "SELECT * FROM employees ORDER by id"
+    ).fetchall()
+    conn.close()
+    return[dict(row) for row in rows] 
