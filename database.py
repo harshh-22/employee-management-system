@@ -52,3 +52,18 @@ def get_employee_by_id(employee_id):
     if row is None:
         return None
     return dict(row)
+
+def update_employee(employee_id, name, email, department, salary, joining_date):
+    conn = get_connection()
+    cursor = conn.execute(
+        """
+        UPDATE employees
+        SET name = ?, email = ?, department = ?, salary = ?, joining_date = ?
+        WHERE id = ?
+        """,
+        (name, email, department, salary, joining_date, employee_id),
+    )
+    conn.commit()
+    updated = cursor.rowcount > 0
+    conn.close()
+    return updated 
