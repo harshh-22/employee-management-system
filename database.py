@@ -41,3 +41,14 @@ def get_all_employees():
     ).fetchall()
     conn.close()
     return[dict(row) for row in rows] 
+
+def get_employee_by_id(employee_id):
+    conn = get_connection()
+    row = conn.execute(
+        "SELECT * FROM employees WHERE id = ?",
+        (employee_id,),
+    ).fetchone()
+    conn.close()
+    if row is None:
+        return None
+    return dict(row)
