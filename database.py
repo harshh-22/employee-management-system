@@ -67,3 +67,14 @@ def update_employee(employee_id, name, email, department, salary, joining_date):
     updated = cursor.rowcount > 0
     conn.close()
     return updated 
+
+def delete_employee(employee_id):
+    conn = get_connection()
+    cursor = conn.execute(
+        "DELETE FROM employees WHERE id = ?",
+        (employee_id,),
+    )
+    conn.commit()
+    deleted = cursor.rowcount > 0
+    conn.close()
+    return deleted 
