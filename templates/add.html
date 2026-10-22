@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Employee</title>
+</head>
+<body>
+    <h1>Add Employee</h1>
+
+    {% if error %}
+    <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" action="/add">
+        <p>Name: <input type="text" name="name"></p>
+        <p>Email: <input type="email" name="email"></p>
+        <p>Department: <input type="text" name="department"></p>
+        <p>Salary: <input type="number" step="any" name="salary"></p>
+        <p>Joining Date: <input type="date" name="joining_date"></p>
+        <button type="submit">Save</button>
+    </form>
+
+    <p><a href="/">Back to employee list</a></p>
+</body>
+</html>
