@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Employee</title>
+</head>
+<body>
+    <h1>Edit Employee</h1>
+
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" action="/edit/{{ employee.id }}">  
+        <p>Name: <input type="text" name="name" value="{{ employee.name }}"></p>
+        <p>Email: <input type="email" name="email" value="{{ employee.email }}"></p>
+        <p>Department: <input type="text" name="department" value="{{ employee.department }}"></p>
+        <p>Salary: <input type="number" step="any" name="salary" value="{{ employee.salary }}"></p>
+        <p>Joining Date: <input type="date" name="joining_date" value="{{ employee.joining_date }}"></p>
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <p><a href="/">Back to employee list</a></p>
+</body>
+</html> 
