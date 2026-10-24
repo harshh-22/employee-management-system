@@ -1,24 +1,45 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Employee</title>
-</head>
-<body>
-    <h1>Edit Employee</h1>
+{% extends "base.html" %}
 
+{% block title %}Edit Employee{% endblock %}
+
+{% block content %}
+<header>
+    <h1>Edit Employee</h1>
+    <a href="/" class="btn btn-ghost">← Back to list</a>
+</header>
+
+<div class="card">
     {% if error %}
-    <p style="color: red;">{{ error }}</p>
+    <div class="error">{{ error }}</div>
     {% endif %}
 
-    <form method="POST" action="/edit/{{ employee.id }}">  
-        <p>Name: <input type="text" name="name" value="{{ employee.name }}"></p>
-        <p>Email: <input type="email" name="email" value="{{ employee.email }}"></p>
-        <p>Department: <input type="text" name="department" value="{{ employee.department }}"></p>
-        <p>Salary: <input type="number" step="any" name="salary" value="{{ employee.salary }}"></p>
-        <p>Joining Date: <input type="date" name="joining_date" value="{{ employee.joining_date }}"></p>
-        <button type="submit">Save Changes</button>
+    <form method="POST" action="/edit/{{ employee.id }}">
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="name">Full name</label>
+                <input type="text" id="name" name="name" value="{{ employee.name }}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="{{ employee.email }}">
+            </div>
+            <div class="form-group">
+                <label for="department">Department</label>
+                <input type="text" id="department" name="department" value="{{ employee.department }}">
+            </div>
+            <div class="form-group">
+                <label for="salary">Salary</label>
+                <input type="number" step="any" id="salary" name="salary" value="{{ employee.salary }}">
+            </div>
+            <div class="form-group">
+                <label for="joining_date">Joining date</label>
+                <input type="date" id="joining_date" name="joining_date" value="{{ employee.joining_date }}">
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn">Save Changes</button>
+            <a href="/" class="btn btn-ghost">Cancel</a>
+        </div>
     </form>
-
-    <p><a href="/">Back to employee list</a></p>
-</body>
-</html> 
+</div>
+{% endblock %}

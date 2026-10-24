@@ -1,13 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Employee Management System</title>
-</head>
-<body>
-    <h1>Employee List</h1>
-<p><a href="/add">Add new employee</a></p>
+{% extends "base.html" %}
+
+{% block title %}Employees{% endblock %}
+
+{% block content %}
+<header>
+    <h1>Employees</h1>
+    <a href="/add" class="btn">+ Add Employee</a>
+</header>
+
+<div class="card">
     {% if employees %}
-    <table border="1" cellpadding="8">
+    <table>
         <tr>
             <th>ID</th>
             <th>Name</th>
@@ -20,23 +23,29 @@
         {% for employee in employees %}
         <tr>
             <td>{{ employee.id }}</td>
-            <td>{{ employee.name }}</td>
-            <td>{{ employee.email }}</td>
-            <td>{{ employee.department }}</td>
-            <td>{{ employee.salary }}</td>
-            <td>{{ employee.joining_date }}</td>
             <td>
-    <a href="/edit/{{ employee.id }}">Edit</a>
-    <form method="POST" action="/delete/{{ employee.id }}" style="display:inline;"
-          onsubmit="return confirm('Delete this employee?');">
-        <button type="submit">Delete</button>
-    </form>
-</td>
+                <span class="avatar">{{ employee.name[0] }}</span>
+                {{ employee.name }}
+            </td>
+            <td>{{ employee.email }}</td>
+            <td><span class="badge">{{ employee.department }}</span></td>
+            <td>{{ "%.2f"|format(employee.salary) }}</td>
+            <td>{{ employee.joining_date }}</td>
+            <td class="actions">
+                <a href="/edit/{{ employee.id }}" class="btn btn-ghost btn-small">Edit</a>
+                <form method="POST" action="/delete/{{ employee.id }}" style="margin:0;"
+                      onsubmit="return confirm('Delete this employee?');">
+                    <button type="submit" class="btn btn-danger btn-small">Delete</button>
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </table>
     {% else %}
-    <p>No employees found.</p>
+    <div class="empty">
+        <p>No employees yet.</p>
+        <a href="/add" class="btn">Add your first employee</a>
+    </div>
     {% endif %}
-</body>
-</html>
+</div>
+{% endblock %}
