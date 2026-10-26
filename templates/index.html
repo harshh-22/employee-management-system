@@ -9,7 +9,7 @@
 </header>
 
 {% if msg %}
-<div class="banner">
+<div class="banner" id="banner">
     {% if msg == 'added' %}Employee added.
     {% elif msg == 'updated' %}Employee updated.
     {% elif msg == 'deleted' %}Employee deleted.
@@ -82,4 +82,19 @@
     </div>
     {% endif %}
 </div>
+
+<script>
+    const banner = document.getElementById("banner");
+    if (banner) {
+        setTimeout(() => {  // Wait 3 seconds
+            banner.style.transition = "opacity 0.5s";
+            banner.style.opacity = "0";
+            setTimeout(() => banner.remove(), 500);
+        }, 3000);
+
+        const url = new URL(window.location);
+        url.searchParams.delete("msg");
+        window.history.replaceState({}, "", url);
+    }
+</script>
 {% endblock %}
