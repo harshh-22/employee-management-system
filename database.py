@@ -78,3 +78,23 @@ def delete_employee(employee_id):
     deleted = cursor.rowcount > 0
     conn.close()
     return deleted 
+
+def search_employees(keyword):
+    conn = get_connection()
+    pattern = f"%{keyword}%"
+    rows = conn.execute(
+        "SELECT * FROM employees WHERE name LIKE ? OR department LIKE ? ORDER BY id",
+        (pattern, pattern),
+    ).fetchall()
+    conn.close()
+    return [dict(row) for row in rows]
+
+
+def get_summary():
+    conn = get_connection()
+    total = conn.execute("SELECT COUNT(*) FROM employees").fetchone()[0]
+    departments = conn.execute(
+        "SELECT COUNT(DISTINCT department) FROM employees WHERE department != ''"
+    ).fetchone()[0]
+    conn.close()
+    return {"total": total, "departments": departments}
